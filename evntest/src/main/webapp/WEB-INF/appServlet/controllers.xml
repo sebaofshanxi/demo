@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd"
+		default-lazy-init="true">
+
+	
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+	</bean>
+
+	<!-- 检索系统需要的配置 -->
+	<bean id="jestConfigBuilder" class="io.searchbox.client.config.HttpClientConfig.Builder">
+		<constructor-arg value="${manage.es.uri}" />
+	</bean>
+
+	<context:component-scan base-package="cn.wanmei" />
+	<!--<context:component-scan base-package="cn.wanmei.core.helper" />
+    <context:component-scan base-package="cn.wanmei.core.v2.helper" />
+	<context:component-scan base-package="cn.wanmei.core.service" />
+	<context:component-scan base-package="cn.wanmei.manage.controller" />
+	<context:component-scan base-package="cn.wanmei.manage.search" />
+	<context:component-scan base-package="cn.wanmei.manage.security.shiro" />
+	<context:component-scan base-package="cn.wanmei.manage.service" />
+	<context:component-scan base-package="cn.wanmei.authc"/>-->
+</beans>

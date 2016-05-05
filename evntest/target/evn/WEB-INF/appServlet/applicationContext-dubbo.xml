@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd"
+	   default-autowire="byName" default-lazy-init="true">
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="wanmei_manage_client"/>
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${manage.zk.url}"/>
+
+	<!--<dubbo:reference timeout="20000"  interface="cn.wanmei.intf.mms.service.IMMSService" id="mmsService"></dubbo:reference>-->
+	<!--<dubbo:reference check="false" timeout="20000" interface="cn.wanmei.intf.oms.service.IOMSOrderService" id="omsService"></dubbo:reference>-->
+	<!--<dubbo:reference check="false" timeout="20000" interface="cn.wanmei.intf.oms.service.OMSReturnOrderService" id="omsReturnOrderService"></dubbo:reference>-->
+	<!--<dubbo:reference check="false" interface="cn.wanmei.intf.cis.service.CisService" id="cisService" timeout="20000"></dubbo:reference>-->
+
+
+	<!--<dubbo:reference check="false" interface="cn.wanmei.core.v2.service.IUCenterSearchService" id="ucenterSearchService"></dubbo:reference>-->
+	<!--<dubbo:reference check="false" interface="cn.wanmei.core.v2.service.IUCenterService" id="ucenterService"></dubbo:reference>-->
+
+
+	<dubbo:reference check="false" timeout="20000" interface="cn.wanmei.intf.pms.service.PMSService" id="pmsService"></dubbo:reference>
+
+	<dubbo:reference check="false" timeout="20000" interface="cn.wanmei.intf.push.service.IPushServiceFacade" id="pushServiceFacade"/>
+	<dubbo:reference check="false" timeout="20000" interface="cn.wanmei.intf.push.service.IPushService" id="pushService" />
+
+	<dubbo:reference check="false" timeout="20000"  interface="cn.wanmei.intf.store.service.IStoreService" id="storeService"></dubbo:reference>
+	<dubbo:reference check="false" interface="cn.wanmei.intf.ips.service.IIPSService" id="ipsService"></dubbo:reference>
+</beans>

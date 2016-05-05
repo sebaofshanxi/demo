@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/data/mongo
+    http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+    http://www.springframework.org/schema/data/jpa
+    http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+     http://www.springframework.org/schema/context
+    	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<mongo:repositories base-package="cn.wanmei.core.mongodb"
+		factory-class="cn.wanmei.core.mongodb.custom.BaseRepositoryFactoryBean" />
+	<mongo:mongo id="mongo" replica-set="${manage.mongo.host}" />
+
+	<mongo:db-factory dbname="${manage.mongo.dbname}" mongo-ref="mongo" />
+
+	<!-- MongoTemplate for connecting and quering the documents in the database -->
+	<bean id="mongoTemplate"
+		class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongo" ref="mongo" />
+		<constructor-arg name="databaseName" value="${manage.mongo.dbname}" />
+		<constructor-arg name="userCredentials" ref="userCredentials"/>
+	</bean>
+
+	<bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
+		<constructor-arg name="username" value="${manage.mongo.user}" />
+		<constructor-arg name="password" value="${manage.mongo.password}" />
+	</bean>
+
+	<!-- Use this post processor to translate any MongoExceptions thrown in 
+		@Repository annotated classes -->
+	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+</beans>
